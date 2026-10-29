@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#10120c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>IRON FRONT — WW2 Shooter</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2310120c'/%3E%3Cpath d='M8 24V8h4v16zm7 0V8h3l6 10V8h4v16h-3L19 14v10z' fill='%23c9bc93'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="grain"></div>
+
+<div id="hud" class="hidden">
+  <div class="topbar">
+    <div class="vitals panel">
+      <div class="vitals-label"><span>VITALS</span><b id="hpText">100</b></div>
+      <div class="bar"><div id="hpFill"></div></div>
+      <div class="vitals-sub">1ST INFANTRY · ABLE CO.</div>
+    </div>
+    <div class="wave-panel panel">
+      <div class="wave-label">WAVE <b id="waveNum">1</b></div>
+      <div class="wave-sub">SCORE <b id="scoreNum">0</b><i>·</i>KILLS <b id="killNum">0</b></div>
+    </div>
+    <div class="right-top">
+      <div class="minimap-wrap panel"><canvas id="minimap" width="128" height="128"></canvas></div>
+      <button id="pauseBtn" class="icon-btn" aria-label="Pause">II</button>
+    </div>
+  </div>
+
+  <div class="ammo">
+    <div class="ammo-main"><b id="ammoMag">30</b><span>/ <i id="ammoReserve">150</i></span></div>
+    <div class="ammo-label">M1 GARAND · .30-06</div>
+    <div class="reload-track"><div id="reloadFill"></div></div>
+  </div>
+
+  <div id="banner"><span id="bannerMain"></span><small id="bannerSub"></small></div>
+  <div id="countdown"></div>
+  <div id="toast"></div>
+  <div id="tiltPill" class="hidden">TILT AIM · TAP TO CENTER</div>
+
+  <div id="zoneLeft" class="zone"></div>
+  <div id="zoneRight" class="zone"></div>
+  <div id="stickLeft" class="stick"><div class="stick-ring"></div><div class="stick-knob"></div></div>
+  <div id="stickRight" class="stick aim"><div class="stick-ring"></div><div class="stick-knob"></div></div>
+
+  <div class="actions">
+    <button id="reloadBtn" class="act-btn reload" aria-label="Reload"><span>RELOAD</span><small>R</small></button>
+    <button id="grenadeBtn" class="act-btn grenade" aria-label="Throw grenade"><span>GRENADE</span><small id="grenadeNum">3</small></button>
+    <button id="fireBtn" class="act-btn fire" aria-label="Fire"><span>FIRE</span><i></i></button>
+  </div>
+</div>
+
+<div id="menu" class="overlay">
+  <div class="menu-panel">
+    <div class="kicker"><i></i>1944 · NORMANDY<i></i></div>
+    <h1 class="logo">IRON <span>FRONT</span></h1>
+    <div class="tagline">WW2 SQUAD SHOOTER</div>
+    <div class="menu-buttons">
+      <button id="deployBtn" class="btn btn-primary"><span>DEPLOY</span><small>TAP TO ENGAGE</small></button>
+      <div class="menu-row">
+        <button id="tiltToggle" class="btn btn-ghost">TILT AIM: OFF</button>
+        <button id="soundToggle" class="btn btn-ghost">SOUND: ON</button>
+      </div>
+    </div>
+    <div class="briefing">
+      <div class="brief-item"><b>MOVE</b><span>LEFT STICK</span></div>
+      <div class="brief-item"><b>AIM / FIRE</b><span>RIGHT STICK</span></div>
+      <div class="brief-item"><b>RELOAD</b><span>TAP RELOAD</span></div>
+      <div class="brief-item"><b>GRENADE</b><span>TAP GRENADE</span></div>
+    </div>
+    <div class="menu-foot">
+      <span id="tiltStatus">Tilt aim off</span>
+      <span>BEST <b id="bestScore">0</b></span>
+    </div>
+    <div class="desktop-hint">DESKTOP: WASD MOVE · MOUSE AIM · CLICK FIRE · R RELOAD · G GRENADE</div>
+  </div>
+</div>
+
+<div id="pause" class="overlay hidden">
+  <div class="panel-box">
+    <div class="panel-kicker">OPERATION PAUSED</div>
+    <h2>HOLD POSITION</h2>
+    <div class="pause-stats">
+      <div><span>WAVE</span><b id="pauseWave">1</b></div>
+      <div><span>SCORE</span><b id="pauseScore">0</b></div>
+      <div><span>KILLS</span><b id="pauseKills">0</b></div>
+    </div>
+    <button id="resumeBtn" class="btn btn-primary"><span>RESUME</span></button>
+    <div class="menu-row">
+      <button id="pauseTiltBtn" class="btn btn-ghost">TILT: OFF</button>
+      <button id="recenterBtn" class="btn btn-ghost">CENTER TILT</button>
+    </div>
+    <div class="menu-row">
+      <button id="pauseMuteBtn" class="btn btn-ghost">SOUND: ON</button>
+      <button id="restartBtn" class="btn btn-ghost">RESTART</button>
+    </div>
+    <button id="menuBtn" class="btn btn-link">ABANDON MISSION</button>
+  </div>
+</div>
+
+<div id="gameover" class="overlay hidden">
+  <div class="panel-box gameover-box">
+    <div class="panel-kicker red">KILLED IN ACTION</div>
+    <h2>MISSION FAILED</h2>
+    <div class="go-stats">
+      <div><span>SCORE</span><b id="goScore">0</b></div>
+      <div><span>WAVES</span><b id="goWaves">0</b></div>
+      <div><span>KILLS</span><b id="goKills">0</b></div>
+    </div>
+    <div id="goBest" class="go-best">BEST 0</div>
+    <button id="retryBtn" class="btn btn-primary"><span>REDEPLOY</span></button>
+    <button id="goMenuBtn" class="btn btn-link">RETURN TO HQ</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

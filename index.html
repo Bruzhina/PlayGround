@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#05070f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="description" content="Digimon Survivor - a fan-made digital monster survival arena for phone, tablet and desktop." />
+<title>Digimon Survivor — Digital Monster Survival</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23061020'/%3E%3Cpath d='M32 8 52 20v24L32 56 12 44V20z' fill='none' stroke='%2358f0ff' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%23ff9d3b'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body data-screen="menu">
+<div id="shell">
+  <canvas id="game" aria-label="Game area"></canvas>
+  <div id="scanlines"></div>
+  <div id="hurt" class="is-idle"></div>
+
+  <div id="hud" class="hud is-hidden" aria-live="polite">
+    <div class="hud-top">
+      <div class="player-hud">
+        <div class="avatar" id="hudAvatar"><canvas id="avatarCanvas" width="96" height="96"></canvas></div>
+        <div class="bars">
+          <div class="name-row">
+            <span id="hudName">AGUMON</span>
+            <span id="hudLevel" class="level-chip">LV 1</span>
+          </div>
+          <div class="bar hp">
+            <i id="hpFill"></i>
+            <span id="hpText">120 / 120</span>
+          </div>
+          <div class="bar xp"><i id="xpFill"></i></div>
+        </div>
+      </div>
+      <div class="timer-block">
+        <div id="timer">00:00</div>
+        <div id="waveLabel">WAVE 01</div>
+      </div>
+      <div class="hud-actions">
+        <div class="kill-block"><b id="killCount">0</b><span>KILLS</span></div>
+        <button id="btnPause" class="icon-btn" aria-label="Pause game">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg>
+        </button>
+        <button id="btnMute" class="icon-btn" aria-label="Toggle sound">
+          <svg viewBox="0 0 24 24" class="ico-on" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /></svg>
+          <svg viewBox="0 0 24 24" class="ico-off" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zM17 9l5 6M22 9l-5 6" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="bossBar" class="boss-bar is-hidden">
+      <div class="boss-meta"><span id="bossName">DEVIMON</span><span id="bossHp">100%</span></div>
+      <div class="boss-track"><i id="bossFill"></i></div>
+    </div>
+
+    <div class="hud-bottom">
+      <div id="moveHint" class="move-hint"><i></i><span>DRAG TO MOVE</span></div>
+      <button id="btnDash" class="dash-btn" aria-label="Dash">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" /></svg>
+        <span>DASH</span>
+      </button>
+    </div>
+  </div>
+
+  <section id="menu" class="screen menu">
+    <header class="menu-top">
+      <span class="micro">FAN-MADE // DIGITAL WORLD PROTOCOL</span>
+      <div class="menu-top-actions">
+        <button id="btnTiltMenu" class="chip-btn">TILT: OFF</button>
+        <button id="btnSoundMenu" class="chip-btn" aria-label="Toggle sound">SOUND: ON</button>
+      </div>
+    </header>
+
+    <div class="menu-main">
+      <div class="hero">
+        <div class="hero-kicker"><span></span> SURVIVAL PROTOCOL 05:00 <span></span></div>
+        <h1 class="logo"><span class="logo-digi">DIGIMON</span><span class="logo-surv">SURVIVOR</span></h1>
+        <p class="tagline">The gate is open. The horde is endless. Digivolve or be deleted.</p>
+      </div>
+
+      <div class="roster" id="roster" role="listbox" aria-label="Choose a Digimon"></div>
+
+      <div class="start-row">
+        <button id="btnStart" class="start-btn"><span>START</span></button>
+        <div class="start-meta">
+          <span id="bestRun">BEST RUN —</span>
+          <span>TOUCH + TILT + KEYBOARD</span>
+        </div>
+      </div>
+
+      <div class="menu-foot">
+        <span>DRAG / WASD TO MOVE</span>
+        <span>AUTO-ATTACK</span>
+        <span>SPACE TO DASH</span>
+        <span>SURVIVE 5 MINUTES</span>
+      </div>
+    </div>
+  </section>
+
+  <div id="banner" class="banner">
+    <div class="banner-kicker"></div>
+    <div class="banner-title"></div>
+    <div class="banner-sub"></div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <div id="levelup" class="overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="levelupTitle">
+    <div class="panel levelup-panel">
+      <div class="panel-head">
+        <span class="kicker">DIGITAL DATA ABSORBED</span>
+        <h2 id="levelupTitle">LEVEL UP <b id="levelupLevel">02</b></h2>
+        <span class="sub">Choose one upgrade. The swarm keeps coming.</span>
+      </div>
+      <div class="cards" id="upgradeCards"></div>
+      <div class="panel-foot">TAP A CARD <span>//</span> KEYS 1 2 3</div>
+    </div>
+  </div>
+
+  <div id="pause" class="overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+    <div class="panel pause-panel">
+      <div class="panel-head">
+        <span class="kicker">SIMULATION SUSPENDED</span>
+        <h2 id="pauseTitle">PAUSED</h2>
+      </div>
+      <div class="pause-stats" id="pauseStats"></div>
+      <div class="pause-actions">
+        <button id="btnResume" class="action-btn primary">RESUME</button>
+        <button id="btnTiltPause" class="action-btn">TILT: OFF</button>
+        <button id="btnSoundPause" class="action-btn">SOUND: ON</button>
+        <button id="btnRestart" class="action-btn">RESTART</button>
+        <button id="btnQuit" class="action-btn danger">QUIT TO MENU</button>
+      </div>
+      <div class="pause-help">
+        <div><b>MOVE</b><span>Drag anywhere / WASD / Tilt</span></div>
+        <div><b>DASH</b><span>Button / Space</span></div>
+        <div><b>PAUSE</b><span>Esc / P</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="results" class="overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="panel result-panel">
+      <div class="panel-head">
+        <span class="kicker" id="resultKicker">SIGNAL LOST</span>
+        <h2 id="resultTitle">DELETED</h2>
+        <span class="sub" id="resultSub">The digital world consumed your data.</span>
+      </div>
+      <div class="result-grid">
+        <div><span>TIME</span><b id="resTime">00:00</b></div>
+        <div><span>KILLS</span><b id="resKills">0</b></div>
+        <div><span>LEVEL</span><b id="resLevel">1</b></div>
+        <div><span>DIGIVOLUTIONS</span><b id="resEvolve">0</b></div>
+      </div>
+      <div class="result-line" id="resultRecord"></div>
+      <div class="result-actions">
+        <button id="btnRetry" class="action-btn primary">PLAY AGAIN</button>
+        <button id="btnMenu" class="action-btn">CHANGE DIGIMON</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

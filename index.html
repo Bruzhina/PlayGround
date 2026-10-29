@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#0b1026">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1026'/%3E%3Cpath d='M32 12 14 22v20l18 10 18-10V22L32 12Z' fill='none' stroke='%2356e1ff' stroke-width='3'/%3E%3Cpath d='m22 32 7 7 14-14' fill='none' stroke='%23ff5f9e' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <meta name="description" content="Dupla de Luz: abrace um jogador online, forme sua dupla e responda à prova de óptica da Professora Marieine.">
+  <title>Dupla de Luz — A Prova da Professora Marieine</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-screen="title">
+  <div class="world-bg" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="beam beam-a"></span>
+    <span class="beam beam-b"></span>
+    <span class="grid-floor"></span>
+    <span class="sparkles" id="sparkles"></span>
+  </div>
+
+  <header class="hud" id="hud">
+    <div class="hud-brand">
+      <span class="hud-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" stroke="currentColor" stroke-width="1.6"/><path d="m7 12 3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>DUPLA DE LUZ</span>
+      <em>SALA 7B</em>
+    </div>
+    <div class="hud-actions">
+      <div class="wallet" title="Saldo simulado de Robux">
+        <span class="coin" aria-hidden="true">R</span>
+        <span id="walletValue">40</span>
+        <small>Robux</small>
+      </div>
+      <button class="icon-btn" id="soundBtn" type="button" aria-label="Desligar som" title="Som">
+        <svg class="sound-on" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="sound-off" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="m16 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="screen title-screen" id="screen-title">
+      <div class="title-copy">
+        <div class="eyebrow"><span class="live-dot"></span> AULA DE ÓPTICA • ONLINE AGORA</div>
+        <div class="title-duo" aria-hidden="true">
+          <div class="mini-avatar" style="--skin:#f2b78e;--shirt:#ff5f9e;--shirt2:#c72f74;--hair:#3a2333" data-hair="bob">
+            <i class="head"><i class="hair"></i><i class="face"><i class="eye"></i><i class="eye"></i><i class="smile"></i></i></i>
+            <i class="torso"></i>
+          </div>
+          <span class="hug-ripple"></span>
+          <div class="mini-avatar flip" style="--skin:#8f5a3c;--shirt:#56e1ff;--shirt2:#1689b8;--hair:#141421" data-hair="short">
+            <i class="head"><i class="hair"></i><i class="face"><i class="eye"></i><i class="eye"></i><i class="smile"></i></i></i>
+            <i class="torso"></i>
+          </div>
+        </div>
+        <h1><span>DUPLA</span> DE LUZ</h1>
+        <p class="tagline">Abrace um jogador online, forme sua dupla e encare a prova da <strong>Professora Marieine</strong>.</p>
+        <div class="title-actions">
+          <button class="btn btn-primary btn-xl" id="startBtn" type="button" aria-label="Play now">
+            <span>Jogar agora</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg>
+          </button>
+          <div class="title-meta">
+            <span><b id="titleOnline">5</b> jogadores online</span>
+            <span class="dot-sep"></span>
+            <span>3 perguntas</span>
+            <span class="dot-sep"></span>
+            <span>Prêmio: <b>123 Robux</b></span>
+          </div>
+        </div>
+        <div class="feature-chips">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none"><path d="M7 11V8a5 5 0 0 1 10 0v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><rect x="5" y="11" width="14" height="9" rx="3" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor"/></svg> Toque ou joystick</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M10 17h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="m10 8 2-2 2 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Inclinação opcional</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v4l2.5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg> 2 minutos de aula</span>
+        </div>
+        <p class="fine-print">Jogo de simulação. Nenhum Robux ou Gift Card real é distribuído.</p>
+      </div>
+
+      <aside class="title-aside" aria-hidden="true">
+        <div class="teacher-bubble">
+          <span>“A luz não mente. Vamos ver se vocês aprenderam!”</span>
+          <b>Prof. Marieine</b>
+        </div>
+        <div class="teacher-portrait">
+          <div class="portrait-halo"></div>
+          <div class="avatar avatar--teacher" style="--skin:#e6a982;--shirt:#f8f9ff;--shirt2:#dbe4ff;--hair:#d8d5e8" data-hair="bun">
+            <span class="char">
+              <span class="shadow"></span>
+              <span class="leg leg-l"></span>
+              <span class="leg leg-r"></span>
+              <span class="arm arm-l"></span>
+              <span class="arm arm-r"></span>
+              <span class="torso"></span>
+              <span class="head">
+                <span class="hair"></span>
+                <span class="face"><i class="eye"></i><i class="eye"></i><i class="smile"></i></span>
+                <span class="glasses"><i></i><i></i></span>
+              </span>
+            </span>
+          </div>
+          <span class="portrait-card">PROVA DE ÓPTICA<br><b>3 QUESTÕES</b></span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="screen lobby-screen" id="screen-lobby" hidden>
+      <div class="lobby-grid">
+        <div class="stage" id="stage">
+          <div class="room" aria-hidden="true">
+            <div class="wall-glow"></div>
+            <div class="window window-a"><i></i><i></i><i></i><i></i></div>
+            <div class="window window-b"><i></i><i></i><i></i><i></i></div>
+            <div class="wall-sign">SALA 7B <small>LABORATÓRIO DE LUZ</small></div>
+            <div class="poster poster-a">LUZ<br><small>reflexão &amp; sombra</small></div>
+            <div class="poster poster-b">◇<br><small>ÓPTICA</small></div>
+            <div class="beam-floor beam-floor-a"></div>
+            <div class="beam-floor beam-floor-b"></div>
+            <div class="floor"></div>
+            <div class="props">
+              <span class="prop prop-mirror"></span>
+              <span class="prop prop-bottle"></span>
+              <span class="prop prop-block"></span>
+            </div>
+          </div>
+
+          <div class="avatar-layer" id="avatarLayer"></div>
+
+          <div class="stage-top">
+            <span class="online-pill"><i></i><b id="onlineCount">5</b> online</span>
+            <button class="tilt-btn" id="tiltBtn" type="button" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M10 17h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="m10 9 2-2 2 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="tiltLabel">Inclinação</span>
+            </button>
+          </div>
+
+          <div class="quest-pill" id="questPill" aria-live="polite">
+            <span class="quest-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            </span>
+            <span id="questText">Aproxime-se de um jogador online para começar.</span>
+          </div>
+
+          <div class="action-dock">
+            <button class="btn btn-hug" id="hugBtn" type="button" disabled>
+              <span class="btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12m0-1.5V5a1.5 1.5 0 0 1 3 0v6m0-2V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a5 5 0 0 1-3.6-1.5L4 15.3a1.6 1.6 0 0 1 2.3-2.3L8 14.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span id="hugLabel">Abraçar</span>
+            </button>
+            <button class="btn btn-choose" id="chooseBtn" type="button" hidden>
+              <span>Escolher</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.2 4.2L19 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+          <div class="joystick" id="joystick" aria-label="Controle de movimento" role="application">
+            <span class="joystick-ring"></span>
+            <span class="joystick-stick" id="joystickStick">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <span class="joystick-label">MOVER</span>
+          </div>
+
+          <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+          <div class="paired-banner" id="pairedBanner" hidden aria-live="polite">
+            <div class="paired-avatars" id="pairedAvatars" aria-hidden="true"></div>
+            <div>
+              <small>DUPLA FORMADA</small>
+              <b id="pairedNames">Você + LiaLuz</b>
+            </div>
+            <span class="paired-check" aria-hidden="true">✓</span>
+          </div>
+
+          <div class="touch-hint" id="touchHint" aria-hidden="true">
+            <span>Toque em um jogador para ir até ele</span>
+          </div>
+        </div>
+
+        <aside class="online-panel">
+          <div class="panel-head">
+            <h2>Jogadores online</h2>
+            <span class="live-badge"><i></i> LIVE</span>
+          </div>
+          <p class="panel-sub">Toque em um nome para caminhar até ele.</p>
+          <ul class="player-list" id="playerList"></ul>
+          <div class="partner-slot" id="partnerSlot">
+            <span class="slot-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 20a6 6 0 0 1 12 0M15.5 14a5 5 0 0 1 5.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+            <span><small>SUA DUPLA</small><b id="partnerName">Ainda não escolhida</b></span>
+          </div>
+          <div class="howto">
+            <b>COMO JOGAR</b>
+            <ol>
+              <li><span>1</span> Toque em um jogador ou use o joystick.</li>
+              <li><span>2</span> Fique perto e toque em <b>Abraçar</b>.</li>
+              <li><span>3</span> Toque em <b>Escolher</b> e responda à prova.</li>
+            </ol>
+          </div>
+          <div class="panel-tip">
+            <b>Dica da Prof.</b>
+            <span>Abrace primeiro. A dupla só é formada depois de escolher.</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen quiz-screen" id="screen-quiz" hidden>
+      <div class="quiz-wrap">
+        <header class="quiz-head">
+          <div class="duo-badge">
+            <div class="duo-dots" id="duoDots" aria-hidden="true"></div>
+            <div>
+              <small>SUA DUPLA</small>
+              <b id="quizDuo">Você + LiaLuz</b>
+            </div>
+          </div>
+          <div class="quiz-progress">
+            <div class="progress-copy"><span id="progressLabel">Pergunta 1 de 3</span><b id="progressScore">0 acertos</b></div>
+            <div class="progress-track"><i id="progressBar"></i></div>
+          </div>
+          <div class="teacher-tag">
+            <span class="teacher-dot" aria-hidden="true">M</span>
+            <span><small>PROFESSORA</small><b>Marieine</b></span>
+          </div>
+        </header>
+
+        <article class="question-card" id="questionCard">
+          <div class="q-art" id="qArt"></div>
+          <div class="q-body">
+            <span class="q-kicker">PROVA DE ÓPTICA <b id="qNum">01</b></span>
+            <h2 id="qText">O que acontece quando uma luz reflete um espelho?</h2>
+            <div class="options" id="options" role="radiogroup" aria-labelledby="qText"></div>
+            <div class="q-footer">
+              <span class="answer-hint" id="answerHint">Selecione uma resposta para continuar.</span>
+              <button class="btn btn-primary" id="nextBtn" type="button" disabled>
+                <span id="nextLabel">Próxima</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="no-reveal">A correção será feita pela Professora Marieine no final.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="screen result-screen" id="screen-result" hidden>
+      <div class="result-wrap">
+        <div class="result-stage" id="resultStage">
+          <div class="result-board" aria-hidden="true">
+            <span class="board-line"></span>
+            <span class="board-line"></span>
+            <span class="board-line"></span>
+          </div>
+          <div class="teacher-scene">
+            <div class="speech-bubble" id="speechBubble">Deixa eu ver as respostas da dupla...</div>
+            <div class="teacher-portrait teacher-portrait--result">
+              <div class="portrait-halo"></div>
+              <div class="avatar avatar--teacher avatar--result" style="--skin:#e6a982;--shirt:#f8f9ff;--shirt2:#dbe4ff;--hair:#d8d5e8" data-hair="bun">
+                <span class="char">
+                  <span class="shadow"></span>
+                  <span class="leg leg-l"></span>
+                  <span class="leg leg-r"></span>
+                  <span class="arm arm-l"></span>
+                  <span class="arm arm-r"></span>
+                  <span class="torso"></span>
+                  <span class="head">
+                    <span class="hair"></span>
+                    <span class="face"><i class="eye"></i><i class="eye"></i><i class="smile"></i></span>
+                    <span class="glasses"><i></i><i></i></span>
+                  </span>
+                </span>
+              </div>
+              <span class="teacher-name">Prof. Marieine</span>
+            </div>
+          </div>
+          <ul class="answer-chips" id="answerChips" aria-live="polite"></ul>
+        </div>
+
+        <aside class="verdict-card" id="verdictCard">
+          <div class="verdict-kicker" id="verdictKicker">CORREÇÃO DA PROFESSORA</div>
+          <h2 id="verdictTitle">Analisando...</h2>
+          <p id="verdictText">A Professora Marieine está conferindo cada resposta.</p>
+          <div class="reward-box" id="rewardBox" aria-live="polite"></div>
+          <button class="btn btn-primary btn-block" id="replayBtn" type="button" hidden>
+            <span>Jogar de novo</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v5h5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <p class="fine-print">Simulação educativa. Sem prêmios reais.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <noscript><p class="noscript">Ative o JavaScript para jogar Dupla de Luz.</p></noscript>
+  <script src="game.js" defer></script>
+</body>
+</html>

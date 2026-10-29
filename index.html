@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#080a0c" />
+  <meta name="description" content="IRON VEIL — an invincible flight-combat FPS built with Three.js. Fly, fight, and never fall." />
+  <title>IRON VEIL — Invincible Flight Combat</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b0e'/%3E%3Cpath d='M18 46V18h8v28zm14 0V28h8v18zm14 0V12h8v34z' fill='%237ce7ff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+    <div id="vignette"></div>
+    <div id="damage-flash"></div>
+    <div id="block-flash"></div>
+
+    <section id="start-screen" class="screen">
+      <div class="scanlines"></div>
+      <div class="start-top">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <div class="start-meta">
+          <div>AEGIS PROTOCOL</div>
+          <div class="muted">SECTOR 07 // BLACK DUNES</div>
+        </div>
+      </div>
+
+      <div class="start-hero">
+        <div class="eyebrow">CLASSIFIED // AIRBORNE DIRECTIVE</div>
+        <h1>IRON<span>VEIL</span></h1>
+        <p class="tagline">The war below cannot touch you.<br />The sky is yours.</p>
+        <div class="feature-row">
+          <div class="feature"><b>∞</b><span>INVINCIBLE</span></div>
+          <div class="feature"><b>✈</b><span>FLIGHT</span></div>
+          <div class="feature"><b>◎</b><span>TOUCH + TILT</span></div>
+        </div>
+        <div class="start-actions">
+          <button id="start-btn" class="btn primary">START</button>
+          <button id="settings-btn" class="btn ghost" type="button">SETTINGS</button>
+          <button id="controls-btn" class="btn ghost" type="button">CONTROLS</button>
+        </div>
+      </div>
+
+      <div class="start-bottom">
+        <div class="hint-desktop"><kbd>WASD</kbd> move <i></i> <kbd>MOUSE</kbd> aim <i></i> <kbd>F</kbd> flight <i></i> <kbd>SPACE</kbd> ascend <i></i> <kbd>R</kbd> reload</div>
+        <div class="hint-mobile">Left stick to move <i></i> Drag right to aim <i></i> Hold FIRE to shoot</div>
+        <div class="build-tag">BUILD 1.0.7 // THREE.JS</div>
+      </div>
+    </section>
+
+    <section id="pause-screen" class="screen hidden">
+      <div class="pause-card">
+        <div class="eyebrow">TACTICAL PAUSE</div>
+        <h2>HOLDING PATTERN</h2>
+        <div class="pause-actions">
+          <button id="resume-btn" class="btn primary" type="button">RESUME</button>
+          <button id="pause-settings-btn" class="btn ghost" type="button">SETTINGS</button>
+          <button id="restart-btn" class="btn ghost" type="button">RESTART</button>
+        </div>
+        <div class="pause-stats">
+          <div><span>KILLS</span><b id="pause-kills">0</b></div>
+          <div><span>WAVE</span><b id="pause-wave">1</b></div>
+          <div><span>SCORE</span><b id="pause-score">0</b></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="settings-panel" class="panel hidden">
+      <div class="panel-head">
+        <div><div class="eyebrow">SYSTEM</div><h3>SETTINGS</h3></div>
+        <button id="settings-close" class="icon-btn" type="button" aria-label="Close settings">✕</button>
+      </div>
+      <div class="panel-body">
+        <label class="setting">
+          <span>Look sensitivity</span>
+          <input id="sensitivity" type="range" min="0.4" max="2.4" step="0.05" value="1" />
+          <output id="sensitivity-value">1.00</output>
+        </label>
+        <label class="setting">
+          <span>Tilt aim</span>
+          <button id="tilt-toggle" class="toggle" type="button" role="switch" aria-checked="false"><i></i><em>OFF</em></button>
+        </label>
+        <label class="setting">
+          <span>Tilt sensitivity</span>
+          <input id="tilt-sensitivity" type="range" min="0.3" max="2.5" step="0.05" value="1" />
+          <output id="tilt-value">1.00</output>
+        </label>
+        <div class="setting">
+          <span>Motion calibration</span>
+          <button id="tilt-calibrate" class="mini-btn" type="button">RECENTER</button>
+        </div>
+        <label class="setting">
+          <span>Render quality</span>
+          <select id="quality-select">
+            <option value="high">HIGH</option>
+            <option value="balanced" selected>BALANCED</option>
+            <option value="performance">PERFORMANCE</option>
+          </select>
+        </label>
+        <label class="setting">
+          <span>Invert look Y</span>
+          <button id="invert-toggle" class="toggle" type="button" role="switch" aria-checked="false"><i></i><em>OFF</em></button>
+        </label>
+        <div class="setting static">
+          <span>Invincibility</span>
+          <b class="locked">PERMANENT / ACTIVE</b>
+        </div>
+      </div>
+      <div class="panel-foot">Motion permission is requested when tilt aim is enabled on iOS.</div>
+    </div>
+
+    <div id="controls-panel" class="panel hidden">
+      <div class="panel-head">
+        <div><div class="eyebrow">FIELD MANUAL</div><h3>CONTROLS</h3></div>
+        <button id="controls-close" class="icon-btn" type="button" aria-label="Close controls">✕</button>
+      </div>
+      <div class="panel-body controls-grid">
+        <div class="control-col">
+          <h4>DESKTOP</h4>
+          <div><kbd>W A S D</kbd><span>Move</span></div>
+          <div><kbd>Mouse</kbd><span>Aim</span></div>
+          <div><kbd>LMB</kbd><span>Fire</span></div>
+          <div><kbd>F</kbd><span>Toggle flight</span></div>
+          <div><kbd>Space</kbd><span>Jump / Ascend</span></div>
+          <div><kbd>Shift</kbd><span>Sprint / Descend</span></div>
+          <div><kbd>R</kbd><span>Reload</span></div>
+          <div><kbd>Esc</kbd><span>Pause</span></div>
+        </div>
+        <div class="control-col">
+          <h4>PHONE / TABLET</h4>
+          <div><kbd>Left stick</kbd><span>Move</span></div>
+          <div><kbd>Right drag</kbd><span>Aim</span></div>
+          <div><kbd>FIRE</kbd><span>Shoot</span></div>
+          <div><kbd>FLY</kbd><span>Toggle flight</span></div>
+          <div><kbd>▲ / ▼</kbd><span>Ascend / Descend</span></div>
+          <div><kbd>RELOAD</kbd><span>Reload</span></div>
+          <div><kbd>Tilt</kbd><span>Enable in settings</span></div>
+          <div><kbd>❚❚</kbd><span>Pause</span></div>
+        </div>
+      </div>
+      <div class="panel-foot">Touch controls appear automatically on phones and tablets. Tilt aim requires device motion support.</div>
+    </div>
+
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="mission-block">
+          <div class="mission-label">OPERATION</div>
+          <div class="mission-name">IRON VEIL</div>
+          <div class="mission-sub"><span class="live-dot"></span> AEGIS FIELD ACTIVE</div>
+        </div>
+        <div class="compass-wrap">
+          <div class="compass" id="compass">
+            <span data-deg="0">N</span><span data-deg="45">NE</span><span data-deg="90">E</span><span data-deg="135">SE</span><span data-deg="180">S</span><span data-deg="225">SW</span><span data-deg="270">W</span><span data-deg="315">NW</span>
+          </div>
+          <div class="compass-needle"></div>
+        </div>
+        <div class="score-block">
+          <div class="score-row"><span>SCORE</span><b id="score">0</b></div>
+          <div class="score-row small"><span>WAVE</span><b id="wave">1</b></div>
+        </div>
+      </div>
+
+      <div id="radar-wrap">
+        <canvas id="radar" width="220" height="220"></canvas>
+        <div class="radar-label">PROXIMITY</div>
+      </div>
+
+      <div id="killfeed"></div>
+      <div id="wave-banner" class="hidden"><span></span></div>
+      <div id="toast" class="hidden"></div>
+
+      <div id="crosshair">
+        <i class="ch-top"></i><i class="ch-bottom"></i><i class="ch-left"></i><i class="ch-right"></i><i class="ch-dot"></i>
+        <div id="hitmarker"><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="hud-bottom">
+        <div class="status-cluster">
+          <div class="invincible-badge"><span class="shield-ico">◈</span><div><b>INVINCIBLE</b><em>AEGIS SHIELD ONLINE</em></div></div>
+          <div class="bar-row">
+            <div class="bar health"><i style="width:100%"></i></div>
+            <div class="bar shield"><i style="width:100%"></i></div>
+          </div>
+          <div class="status-line">
+            <span id="flight-state">GROUND</span>
+            <span id="altitude">ALT 0.0 M</span>
+          </div>
+        </div>
+
+        <div class="weapon-cluster">
+          <div class="weapon-name">VX-9 <b>SPECTER</b></div>
+          <div class="ammo-row"><b id="ammo">30</b><span>/</span><em id="reserve">240</em></div>
+          <div id="reload-bar"><i></i></div>
+          <div class="fire-mode">AUTO <span>5.56 AP</span></div>
+        </div>
+      </div>
+
+      <div id="mobile-controls" class="hidden">
+        <div id="move-zone">
+          <div id="stick-base"><div id="stick-knob"></div></div>
+        </div>
+        <div class="action-cluster">
+          <button id="btn-fire" class="touch-btn fire" type="button" aria-label="Fire"><span>FIRE</span></button>
+          <button id="btn-reload" class="touch-btn small" type="button" aria-label="Reload"><span>RELOAD</span></button>
+          <button id="btn-fly" class="touch-btn small fly" type="button" aria-label="Toggle flight"><span>FLY</span></button>
+          <button id="btn-up" class="touch-btn tiny" type="button" aria-label="Ascend"><span>▲</span></button>
+          <button id="btn-down" class="touch-btn tiny" type="button" aria-label="Descend"><span>▼</span></button>
+        </div>
+        <button id="btn-pause" class="pause-btn" type="button" aria-label="Pause">❚❚</button>
+        <button id="btn-tilt" class="touch-btn small tilt" type="button" aria-label="Toggle tilt aim"><span>TILT</span></button>
+      </div>
+      <button id="desktop-pause" class="pause-btn desktop" type="button" aria-label="Pause">❚❚</button>
+    </div>
+
+    <div id="loading">
+      <div class="loading-core"><span></span></div>
+      <div class="loading-text">INITIALIZING AEGIS</div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

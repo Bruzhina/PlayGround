@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#9ac7df">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Blockhaven — a pocket-sized voxel sandbox built for phones and tablets.">
+  <title>Blockhaven — Pocket Voxel Sandbox</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%236fbd46' d='M16 3 29 10 16 17 3 10z'/%3E%3Cpath fill='%238d5c39' d='M3 10l13 7v12L3 22z'/%3E%3Cpath fill='%236c452c' d='M29 10 16 17v12l13-7z'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/silkscreen-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/silkscreen-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="game-canvas" aria-label="Blockhaven voxel world"></canvas>
+    <div class="screen-shade" aria-hidden="true"></div>
+    <div id="underwater-tint" aria-hidden="true"></div>
+    <div id="damage-flash" aria-hidden="true"></div>
+
+    <div id="hud">
+      <header class="topbar">
+        <div class="brand-block" aria-label="Blockhaven">
+          <div class="brand-cube" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="presentation">
+              <path fill="#7ac94b" d="M16 3 29 10 16 17 3 10z"/>
+              <path fill="#8fc95d" d="M4.5 10.8 16 16.8l11.5-6v.9L16 18.3 4.5 11.7z" opacity=".55"/>
+              <path fill="#8a5a37" d="M3 10l13 7v12L3 22z"/>
+              <path fill="#6b442b" d="M29 10 16 17v12l13-7z"/>
+              <path fill="#5b8f36" d="M3 10l5 2.7v3.1L3 13z" opacity=".55"/>
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <div class="brand-name">BLOCKHAVEN</div>
+            <div class="brand-meta"><span>WILDERNESS</span><i></i><span id="day-label">DAY 1</span></div>
+          </div>
+        </div>
+
+        <div class="top-center" aria-hidden="true">
+          <div class="compass">
+            <div class="compass-ticks" id="compass-ticks"></div>
+            <div class="compass-needle"></div>
+          </div>
+          <div class="coord-chip">
+            <span id="coord-x">X 64</span><span id="coord-y">Y 18</span><span id="coord-z">Z 86</span>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button class="icon-btn tilt-btn" id="tilt-btn" type="button" aria-label="Toggle tilt controls" aria-pressed="false" title="Tilt look">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 3v12h10V5H7Zm3 14.5h4"/><circle cx="12" cy="12" r="2.2"/></svg>
+            <span>TILT</span>
+          </button>
+          <button class="icon-btn" id="sound-btn" type="button" aria-label="Mute sound" aria-pressed="false" title="Sound">
+            <svg class="ico-sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.5-1.5a6 6 0 0 1 0 9M19 5a9 9 0 0 1 0 14"/></svg>
+            <svg class="ico-sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12 1 5 5m0-5-5 5"/></svg>
+          </button>
+          <button class="icon-btn" id="settings-btn" type="button" aria-label="Open options" title="Options">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5l.7 2.4 2.1 1.2 2.4-.7 2.5 4.3-1.8 1.8v2.4l1.8 1.8-2.5 4.3-2.4-.7-2.1 1.2L14.5 21h-5l-.7-2.4-2.1-1.2-2.4.7-2.5-4.3L3.6 12v-2.4L1.8 7.8 4.3 3.5l2.4.7 2.1-1.2L9.5 3Z"/><circle cx="12" cy="12" r="3.1"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="world-badge" id="world-badge">
+        <span class="live-dot"></span>
+        <span id="world-status">CALM MORNING</span>
+      </div>
+
+      <div class="objective-card" id="objective-card">
+        <div class="objective-head"><span>FIRST STEPS</span><button id="objective-toggle" type="button" aria-label="Collapse objectives">−</button></div>
+        <ul id="objective-list">
+          <li data-goal="wood"><span class="check"></span><span>Chop 3 logs</span><b>0/3</b></li>
+          <li data-goal="build"><span class="check"></span><span>Place 5 blocks</span><b>0/5</b></li>
+          <li data-goal="cabin"><span class="check"></span><span>Find the cabin</span><b>—</b></li>
+        </ul>
+      </div>
+
+      <div id="crosshair" aria-hidden="true">
+        <span class="ch ch-v"></span><span class="ch ch-h"></span><span class="ch ch-dot"></span>
+      </div>
+      <div id="target-label" aria-hidden="true"></div>
+      <div id="mine-meter" aria-hidden="true">
+        <svg viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle id="mine-arc" class="arc" cx="22" cy="22" r="18"/></svg>
+      </div>
+
+      <div id="hint" class="hint">
+        <span class="hint-key">DRAG</span><span>LOOK</span><span class="hint-sep"></span>
+        <span class="hint-key">HOLD</span><span>MINE</span><span class="hint-sep"></span>
+        <span class="hint-key">TAP</span><span>PLACE</span>
+        <button id="hint-close" type="button" aria-label="Dismiss hint">×</button>
+      </div>
+
+      <div id="touch-ui">
+        <div id="joystick" class="joystick" aria-label="Movement joystick">
+          <div class="joy-outer">
+            <span class="joy-tick n"></span><span class="joy-tick e"></span><span class="joy-tick s"></span><span class="joy-tick w"></span>
+            <div class="joy-knob" id="joy-knob">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 7 23 14h-4v6h-6v-6H9z"/><path d="M7 25h18v2H7z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div id="action-cluster">
+          <button class="action-btn mine" id="mine-btn" type="button" aria-label="Hold to mine">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8.2 4.5c5.2-2.6 11.3-1.5 15.4 2.6l-2.2 2.2c-3.1-2.5-7.6-3-11.2-1.1L8.2 4.5Zm-2 4.8c2-3.4 5.6-5.6 9.6-5.6v3.2c-2.8 0-5.5 1.5-6.9 3.9L6.2 9.3Zm9.1 1.5 9.8 9.8-2.3 2.3-9.8-9.8 2.3-2.3ZM6.4 17.2l2.2-2.2 8.2 8.2-2.2 2.2-8.2-8.2Zm-3 4.2 2.6-2.6 6.9 6.9-2.6 2.6-6.9-6.9Z"/></svg>
+            <span>MINE</span>
+          </button>
+          <button class="action-btn place" id="place-btn" type="button" aria-label="Place block">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4 28 10.5 16 17 4 10.5 16 4Zm0 3.2-6.9 3.7 6.9 3.7 6.9-3.7L16 7.2Z"/><path d="M4 13.3l11 5.9v9.2L4 22.5v-9.2Zm13 5.9 11-5.9v9.2l-11 5.9v-9.2Z"/></svg>
+            <span>PLACE</span>
+          </button>
+          <button class="action-btn jump" id="jump-btn" type="button" aria-label="Jump">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5 25 15h-6v10h-6V15H7l9-10Z"/></svg>
+            <span>JUMP</span>
+          </button>
+        </div>
+
+        <div id="tilt-indicator" class="tilt-indicator" aria-hidden="true">
+          <span class="tilt-dot"></span><span>TILT LOOK</span><b id="tilt-value">0°</b>
+        </div>
+      </div>
+
+      <div id="hotbar-wrap">
+        <div id="block-label">GRASS BLOCK</div>
+        <div id="hotbar" role="listbox" aria-label="Block hotbar"></div>
+      </div>
+
+      <div id="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <div id="panel-scrim"></div>
+    <section id="settings-panel" aria-label="Options" aria-hidden="true">
+      <div class="panel-head">
+        <div>
+          <p>BLOCKHAVEN</p>
+          <h2>OPTIONS</h2>
+        </div>
+        <button class="close-btn" id="close-settings" type="button" aria-label="Close options">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+        </button>
+      </div>
+      <div class="panel-body">
+        <div class="setting-row">
+          <div class="setting-copy">
+            <strong>Tilt to look</strong>
+            <span>Steer the camera by tilting your device. iOS asks for motion access.</span>
+          </div>
+          <button class="switch" id="tilt-switch" type="button" role="switch" aria-checked="false" aria-label="Tilt to look"><span></span></button>
+        </div>
+        <div class="setting-row">
+          <div class="setting-copy">
+            <strong>Invert look</strong>
+            <span>Reverse vertical camera movement.</span>
+          </div>
+          <button class="switch" id="invert-switch" type="button" role="switch" aria-checked="false" aria-label="Invert look"><span></span></button>
+        </div>
+        <div class="setting-row">
+          <div class="setting-copy">
+            <strong>Sound effects</strong>
+            <span>Footsteps, mining and placing.</span>
+          </div>
+          <button class="switch on" id="sound-switch" type="button" role="switch" aria-checked="true" aria-label="Sound effects"><span></span></button>
+        </div>
+        <div class="setting-row slider-row">
+          <div class="setting-copy">
+            <strong>Look sensitivity</strong>
+            <span>Fine-tune touch and mouse aiming.</span>
+          </div>
+          <div class="slider-wrap">
+            <input id="sensitivity" type="range" min="0.5" max="2" step="0.05" value="1" aria-label="Look sensitivity">
+            <output id="sensitivity-value">1.0×</output>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-copy">
+            <strong>Fullscreen</strong>
+            <span>Hide browser chrome while you explore.</span>
+          </div>
+          <button class="mini-action" id="fullscreen-btn" type="button">ENTER</button>
+        </div>
+
+        <div class="panel-divider"><span>WORLD</span></div>
+        <div class="world-actions">
+          <button class="world-btn" id="respawn-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg>
+            <span><strong>Return to camp</strong><small>Teleport to the starting hill</small></span>
+          </button>
+          <button class="world-btn danger" id="reset-edits-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-9 0 1 14h10l1-14"/></svg>
+            <span><strong>Clear my builds</strong><small>Restore the original landscape</small></span>
+          </button>
+          <button class="world-btn" id="new-world-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6M20 5v6h-6"/></svg>
+            <span><strong>New world</strong><small>Grow a freshly seeded island</small></span>
+          </button>
+        </div>
+
+        <div class="panel-divider"><span>CONTROLS</span></div>
+        <div class="control-grid desktop-controls">
+          <div><kbd>WASD</kbd><span>Move</span></div>
+          <div><kbd>SPACE</kbd><span>Jump</span></div>
+          <div><kbd>LMB</kbd><span>Mine</span></div>
+          <div><kbd>RMB</kbd><span>Place</span></div>
+          <div><kbd>1—9</kbd><span>Select block</span></div>
+          <div><kbd>ESC</kbd><span>Release mouse</span></div>
+        </div>
+        <div class="control-grid touch-controls">
+          <div><kbd>STICK</kbd><span>Move</span></div>
+          <div><kbd>DRAG</kbd><span>Look around</span></div>
+          <div><kbd>HOLD</kbd><span>Mine</span></div>
+          <div><kbd>TAP</kbd><span>Place</span></div>
+          <div><kbd>JUMP</kbd><span>Jump</span></div>
+          <div><kbd>HOTBAR</kbd><span>Select block</span></div>
+        </div>
+        <p class="panel-footnote">Touch controls appear automatically on phones and tablets. Tilt look is optional and can be switched off at any time.</p>
+      </div>
+    </section>
+
+    <div id="loading-screen">
+      <div class="loading-glow"></div>
+      <div class="loading-card">
+        <div class="load-logo" aria-hidden="true">
+          <div class="load-cube">
+            <span class="face top"></span><span class="face left"></span><span class="face right"></span>
+          </div>
+        </div>
+        <h1>BLOCKHAVEN</h1>
+        <p class="load-sub">A POCKET VOXEL SANDBOX</p>
+        <div class="load-bar"><i id="load-fill"></i></div>
+        <div class="load-status" id="load-status">Shaping the island…</div>
+        <div class="load-tip" id="load-tip">Tip: hold MINE to break a block.</div>
+      </div>
+    </div>
+
+    <div id="splash" aria-hidden="true">
+      <div class="splash-copy">
+        <span class="splash-eyebrow">YOUR ISLAND AWAITS</span>
+        <strong>BLOCKHAVEN</strong>
+        <span class="splash-sub">BUILD · MINE · WANDER</span>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

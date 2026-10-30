@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070a18">
+  <meta name="description" content="Dupla de Luz: forme dupla com um jogador online, abrace seu par e responda à prova de ciências da Professora Marieine.">
+  <title>Dupla de Luz — Prova da Professora Marieine</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23ffcf5c'/%3E%3Cpath d='M13 2 4.5 13.5H11l-1 8.5 9-12h-6.5L13 2Z' fill='%232b1700'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="orb orb--gold"></span>
+    <span class="orb orb--pink"></span>
+    <span class="orb orb--cyan"></span>
+    <span class="stars"></span>
+    <span class="rays"></span>
+    <span class="floor-grid"></span>
+  </div>
+
+  <div id="app">
+    <header class="topbar">
+      <div class="brand" aria-label="Dupla de Luz">
+        <span class="brand-bolt">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 1.8 4.2 13.6H11l-1 8.6 9-12.1h-6.4L13 1.8Z" fill="currentColor"/></svg>
+        </span>
+        <span class="brand-text">Dupla de Luz</span>
+      </div>
+      <div class="topbar-right">
+        <span class="online-pill"><span class="online-dot"></span><span id="onlineCount">6 online</span></span>
+        <button class="icon-btn" id="soundToggle" type="button" aria-pressed="true" aria-label="Desligar som">
+          <svg class="sound-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/>
+            <path d="M15.5 8.5c1.6 1.2 1.6 5.8 0 7M18.5 6c2.6 2 2.6 10 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/>
+            <path d="m15.5 9.5 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="screen screen--title is-active" data-screen="title" aria-labelledby="titleHeading">
+        <div class="title-hero">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Aula de ciências • Professora Marieine</p>
+          <h1 class="title-logo" id="titleHeading"><span>Dupla</span><span class="title-logo-accent">de Luz</span></h1>
+          <p class="title-tagline">Forme dupla com um jogador online, abrace seu par e mostre o que sabe sobre luz e materiais.</p>
+
+          <div class="stat-row" aria-label="Informações do jogo">
+            <span class="stat"><span class="stat-dot stat-dot--green"></span>6 online</span>
+            <span class="stat">3 perguntas</span>
+            <span class="stat">Prêmio: 123 Robux</span>
+          </div>
+
+          <div class="title-cta">
+            <button class="btn btn--primary btn--xl" id="startBtn" type="button" aria-label="Start game">Começar</button>
+            <span class="title-cta-note">Toque, segure e incline. Feito para celular e tablet.</span>
+          </div>
+
+          <p class="disclaimer">Jogo educativo simulado. Nenhum Robux real é ganho ou perdido. Projeto de fã, sem vínculo com a Roblox.</p>
+        </div>
+
+        <aside class="title-side">
+          <div class="teacher-card">
+            <div class="teacher-avatar" id="teacherAvatar" aria-hidden="true"></div>
+            <div>
+              <p class="teacher-kicker">Sua professora</p>
+              <h3>Professora Marieine</h3>
+              <p class="teacher-quote">“Vamos ver quem entende de luz e materiais. Forme dupla e capriche!”</p>
+            </div>
+          </div>
+
+          <div class="mini-gift">
+            <div class="mini-gift-card" aria-hidden="true">
+              <span class="mini-gift-brand">ROBLOX</span>
+              <span class="mini-gift-value">123</span>
+              <span class="mini-gift-unit">ROBUX</span>
+            </div>
+            <div>
+              <p class="mini-gift-label">Prêmio da dupla</p>
+              <strong>Gift Card de 123 Robux</strong>
+              <span>Acerte as 3 perguntas da prova.</span>
+            </div>
+          </div>
+
+          <ol class="steps" aria-label="Como jogar">
+            <li>
+              <span class="step-number">1</span>
+              <div><strong>Forme dupla</strong><p>Cada jogador online entra em uma dupla.</p></div>
+            </li>
+            <li>
+              <span class="step-number">2</span>
+              <div><strong>Abrace e escolha</strong><p>Segure o botão (ou incline o celular) e toque em Escolher.</p></div>
+            </li>
+            <li>
+              <span class="step-number">3</span>
+              <div><strong>Responda a prova</strong><p>Três perguntas. A correção aparece no relatório final.</p></div>
+            </li>
+          </ol>
+        </aside>
+      </section>
+
+      <section class="screen screen--lobby" data-screen="lobby" aria-labelledby="lobbyHeading">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Sala 7B • ao vivo</p>
+            <h2 id="lobbyHeading">Duplas formadas</h2>
+          </div>
+          <span class="badge" id="lobbyOnline">6 jogadores online</span>
+        </div>
+        <p class="lede">Cada jogador online entra em uma dupla. Encontre a sua, abrace seu par e escolha a dupla para começar a prova.</p>
+
+        <div class="duo-grid" id="duoGrid"></div>
+
+        <div class="screen-actions">
+          <button class="btn btn--primary" id="toHugBtn" type="button">Ir para o abraço</button>
+          <button class="btn btn--ghost" id="reshuffleBtn" type="button">Trocar dupla</button>
+        </div>
+
+        <div class="lobby-tip">
+          <div class="teacher-mini teacher-mini--tip" id="lobbyTeacher" aria-hidden="true"></div>
+          <div>
+            <p class="tip-label">Dica da Professora Marieine</p>
+            <p><strong>O abraço completo libera o botão Escolher.</strong> Segure o botão ou incline o celular. A correção da prova só aparece no relatório final.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen screen--hug" data-screen="hug" aria-labelledby="hugHeading">
+        <div class="hug-head">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Etapa 1 de 2</p>
+          <h2 id="hugHeading">Abrace seu par</h2>
+          <p class="lede" id="hugLede">Segure o botão ou incline o celular para abraçar.</p>
+        </div>
+
+        <div class="hug-stage" id="hugStage">
+          <span class="stage-glow" aria-hidden="true"></span>
+          <div class="avatar-side avatar-side--you" id="hugYou"></div>
+          <div class="hug-hearts" id="hugHearts" aria-hidden="true"></div>
+          <div class="avatar-side avatar-side--partner" id="hugPartner"></div>
+          <div class="hug-names" aria-hidden="true">
+            <span>Você</span>
+            <span class="hug-names-plus">+</span>
+            <span id="hugPartnerName">Luna</span>
+          </div>
+        </div>
+
+        <div class="hug-controls">
+          <div class="meter-wrap">
+            <div class="meter" id="hugMeter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progresso do abraço">
+              <div class="meter-fill" id="hugFill"></div>
+            </div>
+            <span class="meter-percent" id="hugPercent">0%</span>
+          </div>
+
+          <button class="hug-btn" id="hugBtn" type="button" aria-describedby="hugLede">Abraçar</button>
+          <button class="btn btn--choose" id="chooseBtn" type="button" disabled>Escolher dupla</button>
+          <button class="tilt-chip" id="tiltBtn" type="button" hidden>Ativar inclinação</button>
+          <p class="microcopy center">Segure para abraçar • solte quando estiver completo</p>
+        </div>
+
+        <button class="link-btn" id="backToLobby" type="button">Voltar para as duplas</button>
+      </section>
+
+      <section class="screen screen--quiz" data-screen="quiz" aria-labelledby="quizHeading">
+        <div class="quiz-head">
+          <div class="duo-chip" id="quizDuo"></div>
+          <span class="badge" id="quizProgressLabel">Pergunta 1 de 3</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="quizProgressBar"></div></div>
+
+        <article class="question-card">
+          <p class="question-tag" id="questionTag">Reflexão</p>
+          <h2 id="questionText">Carregando pergunta...</h2>
+          <div class="options" id="options"></div>
+        </article>
+
+        <p class="microcopy center" id="quizHint">Sem resposta na hora: a Professora Marieine corrige no final.</p>
+      </section>
+
+      <section class="screen screen--report" data-screen="report" aria-labelledby="reportHeading">
+        <div class="report-head">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Resultado da prova</p>
+          <h2 id="reportHeading">Relatório para a Professora Marieine</h2>
+        </div>
+
+        <article class="report-card">
+          <header class="report-card-head">
+            <div class="teacher-mini" id="reportTeacher" aria-hidden="true"></div>
+            <div>
+              <p class="report-label">Destinatária</p>
+              <h3>Professora Marieine</h3>
+              <p class="report-sub" id="reportDate"></p>
+            </div>
+            <div class="stamp" id="reportStamp">CORRIGIDO</div>
+          </header>
+
+          <div class="report-body">
+            <div class="score-block">
+              <div class="score-ring" id="scoreRing" aria-hidden="true"><span id="scoreText">0/3</span></div>
+              <div>
+                <p class="report-label">Dupla</p>
+                <h3 id="reportDuo">Você + Luna</h3>
+                <p class="report-sub" id="reportVerdict"></p>
+              </div>
+            </div>
+            <div class="reward-card" id="rewardCard"></div>
+          </div>
+
+          <details class="answer-key" id="answerKey">
+            <summary>Ver gabarito da Professora Marieine</summary>
+            <ol class="answer-list" id="answerList"></ol>
+          </details>
+
+          <div class="report-actions">
+            <button class="btn btn--primary" id="playAgainBtn" type="button">Jogar novamente</button>
+            <button class="btn btn--ghost" id="changeDuoBtn" type="button">Trocar de dupla</button>
+          </div>
+
+          <p class="disclaimer disclaimer--paper">Jogo educativo simulado. Nenhum Robux real é ganho ou perdido. Projeto de fã, sem vínculo com a Roblox.</p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <noscript>
+    <p class="noscript">Ative o JavaScript para jogar Dupla de Luz.</p>
+  </noscript>
+
+  <script src="logic.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

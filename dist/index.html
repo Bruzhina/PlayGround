@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#8fd7ff" />
+    <meta name="description" content="Duo Quest: forme uma dupla, abrace um jogador online e encare a prova de ciências da Professora Marieine." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ff6f61'/%3E%3Cpath d='M32 51S12 39 12 25c0-8 9-13 15-7l5 6 5-6c6-6 15-1 15 7 0 14-20 26-20 26Z' fill='%23fff8ec'/%3E%3C/svg%3E" />
+    <title>Duo Quest · A Prova da Professora Marieine</title>
+    <script type="module" crossorigin src="/assets/index-D7hSoopE.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DkxA9mxC.css">
+  </head>
+  <body>
+    <svg class="svg-defs" aria-hidden="true">
+      <defs>
+        <symbol id="icon-heart" viewBox="0 0 24 24">
+          <path d="M12 21s-7.5-4.6-9.4-9.2C1.3 8.2 3.4 4.5 7 4.5c2 0 3.7 1.1 5 2.9 1.3-1.8 3-2.9 5-2.9 3.6 0 5.7 3.7 4.4 7.3C19.5 16.4 12 21 12 21Z" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-play" viewBox="0 0 24 24">
+          <path d="M8.2 5.1c0-1.1 1.2-1.8 2.2-1.2l9.1 5.7c1 .6 1 2 0 2.6l-9.1 5.7c-1 .6-2.2-.1-2.2-1.2V5.1Z" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24">
+          <path d="M12 8.3a3.7 3.7 0 1 0 0 7.4 3.7 3.7 0 0 0 0-7.4Zm9 3.7c0 .5 0 .9-.1 1.4l2 1.5-2 3.4-2.4-1a8 8 0 0 1-2.4 1.4l-.4 2.6h-4l-.4-2.6a8 8 0 0 1-2.4-1.4l-2.4 1-2-3.4 2-1.5a8.7 8.7 0 0 1 0-2.8l-2-1.5 2-3.4 2.4 1a8 8 0 0 1 2.4-1.4l.4-2.6h4l.4 2.6a8 8 0 0 1 2.4 1.4l2.4-1 2 3.4-2 1.5c.1.5.1.9.1 1.4Z" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-sound" viewBox="0 0 24 24">
+          <path d="M4 9.5v5h4l5 4.2V5.3L8 9.5H4Zm12.4-2.2a6.6 6.6 0 0 1 0 9.4l-1.5-1.5a4.5 4.5 0 0 0 0-6.4l1.5-1.5Zm2.7-2.7a10.5 10.5 0 0 1 0 14.8l-1.5-1.5a8.4 8.4 0 0 0 0-11.8l1.5-1.5Z" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-mute" viewBox="0 0 24 24">
+          <path d="M4 9.5v5h4l5 4.2V5.3L8 9.5H4Zm12.2.3 1.5-1.5 2.1 2.1 2.1-2.1 1.5 1.5-2.1 2.1 2.1 2.1-1.5 1.5-2.1-2.1-2.1 2.1-1.5-1.5 2.1-2.1-2.1-2.1Z" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-hug" viewBox="0 0 32 32">
+          <circle cx="10.5" cy="9" r="3.3" fill="currentColor" opacity=".55"/>
+          <circle cx="21.5" cy="9" r="3.3" fill="currentColor" opacity=".55"/>
+          <path d="M5.4 26c.2-5.7 2.4-9.1 5.1-9.1 1.7 0 3.2 1.6 5.5 1.6s3.8-1.6 5.5-1.6c2.7 0 4.9 3.4 5.1 9.1" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M8.5 14.5c-2.7.3-4.2 2-4.2 4.2 0 1.9 1.4 3.2 3.2 3.2 1.7 0 3-1.2 3-3 0-2-1-3.5-2-4.4Zm15 0c2.7.3 4.2 2 4.2 4.2 0 1.9-1.4 3.2-3.2 3.2-1.7 0-3-1.2-3-3 0-2 1-3.5 2-4.4Z" fill="currentColor" opacity=".8"/>
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24">
+          <path d="m5 12.5 4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-x" viewBox="0 0 24 24">
+          <path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-chevron" viewBox="0 0 24 24">
+          <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-tilt" viewBox="0 0 24 24">
+          <rect x="7" y="2.5" width="10" height="19" rx="2.4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M2.5 9c1.8-1.7 3.6-1.7 5.4 0M16.1 15c1.8 1.7 3.6 1.7 5.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-robux" viewBox="0 0 24 24">
+          <path d="M12 1.8 21.4 7v10L12 22.2 2.6 17V7L12 1.8Z" fill="#00a2ff"/>
+          <path d="M12 4.2 19.2 8v8L12 19.8 4.8 16V8L12 4.2Z" fill="#31c1ff"/>
+          <path d="M8.2 7.5h4.7c2.4 0 4 1.2 4 3.3 0 1.4-.7 2.4-1.9 2.9l2.2 4.1h-2.7l-1.8-3.5h-2v3.5H8.2V7.5Zm2.5 2v2.7h1.9c1 0 1.6-.5 1.6-1.4s-.6-1.3-1.6-1.3h-1.9Z" fill="#fff"/>
+        </symbol>
+        <symbol id="icon-arrow" viewBox="0 0 24 24">
+          <path d="M4 12h15M14 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="teacher-marieine" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="98" fill="#fff5df"/>
+          <circle cx="100" cy="100" r="87" fill="#c9f3e6"/>
+          <circle cx="44" cy="52" r="10" fill="#ffd166" opacity=".85"/>
+          <circle cx="158" cy="72" r="7" fill="#ff9e8e" opacity=".8"/>
+          <path d="M52 200c1-37 21-61 48-61s47 24 48 61H52Z" fill="#f8fbff"/>
+          <path d="M77 143h46l-5 57H82l-5-57Z" fill="#36b9a6"/>
+          <path d="M88 125h24v27c-7 6-17 6-24 0v-27Z" fill="#b87856"/>
+          <ellipse cx="100" cy="92" rx="38" ry="43" fill="#c98a64"/>
+          <circle cx="63" cy="96" r="8" fill="#c98a64"/>
+          <circle cx="137" cy="96" r="8" fill="#c98a64"/>
+          <circle cx="100" cy="43" r="22" fill="#382838"/>
+          <path d="M58 91c0-34 18-53 42-53s42 19 42 53c-8-15-24-22-42-22s-34 7-42 22Z" fill="#382838"/>
+          <path d="M58 91c-2 15 1 27 7 37l7-10c-5-10-6-19-4-29l-10 2Zm84 0c2 15-1 27-7 37l-7-10c5-10 6-19 4-29l10 2Z" fill="#382838"/>
+          <circle cx="84" cy="96" r="4.2" fill="#2a2030"/>
+          <circle cx="116" cy="96" r="4.2" fill="#2a2030"/>
+          <circle cx="85.5" cy="94.5" r="1.4" fill="#fff"/>
+          <circle cx="117.5" cy="94.5" r="1.4" fill="#fff"/>
+          <path d="M87 112c8 7 18 7 26 0" fill="none" stroke="#7c3e3e" stroke-width="4" stroke-linecap="round"/>
+          <rect x="69" y="85" width="28" height="21" rx="9" fill="none" stroke="#f0b84b" stroke-width="4"/>
+          <rect x="103" y="85" width="28" height="21" rx="9" fill="none" stroke="#f0b84b" stroke-width="4"/>
+          <path d="M97 95h6" stroke="#f0b84b" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="72" cy="110" r="6" fill="#e98c8c" opacity=".55"/>
+          <circle cx="128" cy="110" r="6" fill="#e98c8c" opacity=".55"/>
+          <circle cx="61" cy="109" r="3.2" fill="#f0b84b"/>
+          <circle cx="139" cy="109" r="3.2" fill="#f0b84b"/>
+          <path d="M77 150 66 200h18l11-47-18-3Zm46 0 11 50h-18l-11-47 18-3Z" fill="#e8f2f8"/>
+          <path d="M79 148c5 4 10 6 21 6s16-2 21-6l-5 17c-5 3-10 4-16 4s-11-1-16-4l-5-17Z" fill="#f8fbff"/>
+          <path d="M91 151h18v8H91z" fill="#f0b84b"/>
+          <rect x="121" y="171" width="45" height="33" rx="7" fill="#f0b84b" transform="rotate(-10 121 171)"/>
+          <path d="M127 180h33M127 188h27M127 196h21" stroke="#8a6322" stroke-width="2.4" stroke-linecap="round" transform="rotate(-10 121 171)"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div id="app">
+      <canvas id="world" aria-label="Duo Plaza 3D"></canvas>
+      <div class="sky-glow" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <div id="hud" class="hud is-hidden" aria-live="polite">
+        <header class="hud-top">
+          <div class="brand-chip">
+            <span class="brand-mark"><svg><use href="#icon-heart"></use></svg></span>
+            <span class="brand-copy"><strong>DUO QUEST</strong><small>Ciência da luz</small></span>
+          </div>
+          <div class="online-chip"><span class="online-dot"></span><span id="online-count">4 jogadores online</span></div>
+          <div class="hud-actions">
+            <button id="walletBtn" class="wallet-chip" type="button" aria-label="Sua carteira de Robux">
+              <svg><use href="#icon-robux"></use></svg><span id="wallet-value">123</span>
+            </button>
+            <button id="soundBtn" class="icon-btn" type="button" aria-label="Som ligado"><svg><use href="#icon-sound"></use></svg></button>
+            <button id="settingsBtn" class="icon-btn" type="button" aria-label="Configurações"><svg><use href="#icon-settings"></use></svg></button>
+          </div>
+        </header>
+
+        <div id="objective" class="objective-card">
+          <span class="objective-step" id="objective-step">01</span>
+          <span class="objective-copy"><small>MISSÃO DA DUPLA</small><strong id="objective-text">Abrace um jogador online</strong></span>
+          <span class="objective-heart"><svg><use href="#icon-heart"></use></svg></span>
+        </div>
+
+        <div id="tiltChip" class="tilt-chip is-hidden"><svg><use href="#icon-tilt"></use></svg> Inclinação ativa</div>
+
+        <div id="interaction" class="interaction is-hidden">
+          <div class="interaction-bubble">
+            <span id="interaction-kicker">JOGADOR ONLINE</span>
+            <strong id="interaction-name">Luna_Star</strong>
+            <span id="interaction-hint">Aperte para abraçar</span>
+          </div>
+          <button id="actionBtn" class="action-btn" type="button" aria-label="Abraçar jogador">
+            <span class="action-icon"><svg><use href="#icon-hug"></use></svg></span>
+            <span class="action-label" id="action-label">Abraçar</span>
+          </button>
+        </div>
+
+        <div id="joystick" class="joystick" aria-label="Controle de movimento">
+          <div class="joystick-ring"></div>
+          <div class="joystick-knob"></div>
+        </div>
+
+        <div id="moveHint" class="move-hint">
+          <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> mover</span>
+          <span><kbd>E</kbd> interagir</span>
+        </div>
+
+        <div id="toast" class="toast" role="status"></div>
+      </div>
+
+      <section id="intro" class="screen intro-screen">
+        <div class="intro-shell">
+          <div class="intro-main">
+            <div class="intro-eyebrow"><span class="live-dot"></span> AULA DE CIÊNCIAS · AO VIVO</div>
+            <h1 class="intro-title">Forme sua dupla.<br /><span>Encare a luz.</span></h1>
+            <p class="intro-lead">Entre na Duo Plaza, abrace um jogador online e escolha seu par para a prova de 3 perguntas da <strong>Professora Marieine</strong>.</p>
+            <div class="intro-features">
+              <span><b>1</b> Abrace</span>
+              <span><b>2</b> Escolha</span>
+              <span><b>3</b> Responda</span>
+            </div>
+            <div class="intro-actions">
+              <button id="playBtn" class="primary-btn play-btn" type="button" aria-label="Play">
+                <span class="btn-icon"><svg><use href="#icon-play"></use></svg></span>
+                <span>Play</span>
+                <small>entrar na praça</small>
+              </button>
+              <button id="howBtn" class="ghost-btn" type="button">Como jogar</button>
+            </div>
+            <div class="intro-meta">
+              <span class="meta-pill"><svg><use href="#icon-robux"></use></svg> Prêmio: 123 Robux</span>
+              <span class="meta-pill">Toque + inclinação</span>
+            </div>
+          </div>
+
+          <aside class="assignment-card" aria-label="Missão da Professora Marieine">
+            <div class="assignment-top">
+              <span class="teacher-badge"><svg><use href="#teacher-marieine"></use></svg></span>
+              <div><small>PROFESSORA</small><strong>Marieine</strong></div>
+              <span class="tape"></span>
+            </div>
+            <div class="assignment-body">
+              <span class="mini-label">PROVA DE HOJE</span>
+              <h2>A luz e os materiais</h2>
+              <ul>
+                <li><span>01</span> Espelho</li>
+                <li><span>02</span> Garrafa de plástico</li>
+                <li><span>03</span> Materiais opacos</li>
+              </ul>
+              <div class="assignment-reward">
+                <span><svg><use href="#icon-robux"></use></svg></span>
+                <div><small>RECOMPENSA</small><strong>Gift Card 123 Robux · Roblox</strong></div>
+              </div>
+              <p class="assignment-note">Errou? A penalidade é pequena: só 13 Robux.</p>
+            </div>
+            <span class="sticker sticker-star">★</span>
+            <span class="sticker sticker-heart">♥</span>
+          </aside>
+        </div>
+        <div class="intro-footer"><span>Feito para celular, tablet e desktop</span><span>Professora Marieine · 2026</span></div>
+      </section>
+
+      <section id="quiz" class="screen quiz-screen is-hidden" aria-label="Prova da Professora Marieine">
+        <div class="quiz-shell">
+          <header class="quiz-top">
+            <div class="quiz-brand">
+              <span class="quiz-mark"><svg><use href="#icon-heart"></use></svg></span>
+              <div><strong>PROVA DA DUPLA</strong><small id="duo-names">Você + Luna_Star</small></div>
+            </div>
+            <div class="quiz-progress-wrap">
+              <span id="question-count">Pergunta 1 de 3</span>
+              <div class="quiz-progress"><i id="quiz-progress-bar"></i></div>
+            </div>
+            <button id="quizSoundBtn" class="icon-btn" type="button" aria-label="Som ligado"><svg><use href="#icon-sound"></use></svg></button>
+          </header>
+
+          <div class="quiz-layout">
+            <aside class="quiz-side">
+              <div class="teacher-mini">
+                <span class="teacher-badge large"><svg><use href="#teacher-marieine"></use></svg></span>
+                <span class="teacher-online"></span>
+              </div>
+              <div class="teacher-bubble">
+                <strong>Professora Marieine</strong>
+                <p id="teacher-line">“Sem pressa, cientistas. Leiam com atenção!”</p>
+              </div>
+              <div class="light-tip">
+                <span class="light-orb" aria-hidden="true"></span>
+                <div><small>DICA DA LUZ</small><p>Observe como a luz encontra cada material.</p></div>
+              </div>
+              <div class="duo-token">
+                <span class="duo-avatar you">V</span>
+                <span class="duo-link"><svg><use href="#icon-heart"></use></svg></span>
+                <span class="duo-avatar partner" id="partner-initial">L</span>
+              </div>
+              <div class="score-strip">
+                <div><strong id="correct-count">0</strong><small>acertos</small></div>
+                <span></span>
+                <div><strong id="remaining-count">3</strong><small>restantes</small></div>
+              </div>
+            </aside>
+
+            <main class="question-panel">
+              <div class="question-meta"><span id="question-index">01</span><span>MÚLTIPLA ESCOLHA</span></div>
+              <h2 id="question-text">O que acontece quando uma luz reflete um espelho?</h2>
+              <div id="answers" class="answers" role="group" aria-label="Alternativas"></div>
+              <div id="feedback" class="feedback is-hidden">
+                <div class="feedback-icon" id="feedback-icon"><svg><use href="#icon-check"></use></svg></div>
+                <div class="feedback-copy">
+                  <strong id="feedback-title">Acertou!</strong>
+                  <p id="feedback-text"></p>
+                </div>
+                <button id="nextBtn" class="next-btn" type="button"><span>Próxima</span><svg><use href="#icon-arrow"></use></svg></button>
+              </div>
+            </main>
+          </div>
+          <footer class="quiz-footer"><span>Não há tempo limite</span><span>3 perguntas · 123 Robux em jogo</span></footer>
+        </div>
+      </section>
+
+      <section id="result" class="screen result-screen is-hidden" aria-label="Boletim da Professora Marieine">
+        <div class="result-shell">
+          <div class="result-heading">
+            <div class="result-teacher">
+              <span class="teacher-badge xl"><svg><use href="#teacher-marieine"></use></svg></span>
+              <span class="verified"><svg><use href="#icon-check"></use></svg></span>
+            </div>
+            <div>
+              <span class="result-eyebrow">BOLETIM ENVIADO</span>
+              <h1 id="result-title">A Professora Marieine viu seu resultado!</h1>
+              <p id="result-subtitle">A dupla foi avaliada na prova de ciências da luz.</p>
+            </div>
+            <span class="result-stamp">MARIEINE<br /><b>VISTO</b></span>
+          </div>
+
+          <div class="result-grid">
+            <article class="report-card">
+              <div class="report-top">
+                <div>
+                  <small>ESCOLA DUO PLAZA · CIÊNCIAS</small>
+                  <h2>Boletim de Dupla</h2>
+                </div>
+                <div class="report-score"><strong id="report-score">3/3</strong><small>ACERTOS</small></div>
+              </div>
+              <div class="report-duo">
+                <span class="report-avatar you">V</span>
+                <div><small>DUPLA</small><strong id="report-duo-names">Você + Luna_Star</strong></div>
+                <span class="report-heart"><svg><use href="#icon-heart"></use></svg></span>
+                <span class="report-avatar partner" id="report-partner-initial">L</span>
+              </div>
+              <div id="report-rows" class="report-rows"></div>
+              <div class="report-note">
+                <span class="report-note-icon">★</span>
+                <div><small>RECADO DA PROFESSORA</small><p id="report-note-text">Dupla aprovada com louvor! A luz encontrou o caminho certo. — Prof. Marieine</p></div>
+              </div>
+              <div class="report-footer"><span id="report-date">30/10/2026</span><span>Professora Marieine</span></div>
+            </article>
+
+            <aside class="reward-card" id="rewardCard">
+              <div class="reward-burst" aria-hidden="true"></div>
+              <span class="reward-eyebrow" id="reward-eyebrow">RECOMPENSA DESBLOQUEADA</span>
+              <div id="giftVisual" class="gift-visual">
+                <div class="gift-card">
+                  <span class="gift-shine"></span>
+                  <span class="gift-brand">ROBLOX</span>
+                  <span class="gift-hex"><svg><use href="#icon-robux"></use></svg></span>
+                  <strong>123</strong>
+                  <small>ROBUX GIFT CARD</small>
+                  <span class="gift-code">DUO-123-LIGHT</span>
+                </div>
+              </div>
+              <div id="lossVisual" class="loss-visual is-hidden">
+                <div class="loss-icon">−13</div>
+                <strong>Menos Robux, mais aprendizado.</strong>
+                <p>A Professora Marieine acredita na sua dupla. Errar também faz parte do aprendizado.</p>
+              </div>
+              <div class="reward-copy">
+                <h3 id="reward-title">Gift Card de 123 Robux</h3>
+                <p id="reward-text">Você acertou tudo! O código foi enviado para a Professora Marieine e adicionado à sua carteira.</p>
+              </div>
+              <div class="wallet-row">
+                <span><svg><use href="#icon-robux"></use></svg> Carteira</span>
+                <strong id="result-wallet">246 Robux</strong>
+              </div>
+              <div class="result-actions">
+                <button id="againBtn" class="primary-btn compact" type="button"><span>Jogar novamente</span><svg><use href="#icon-arrow"></use></svg></button>
+                <button id="newDuoBtn" class="ghost-btn" type="button">Nova dupla</button>
+              </div>
+            </aside>
+          </div>
+          <div class="result-footnote"><svg><use href="#icon-heart"></use></svg> Resultado enviado para a Professora Marieine · Duo Quest</div>
+        </div>
+      </section>
+
+      <div id="settings" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="modal-card">
+          <div class="modal-head"><div><small>AJUSTES DA DUPLA</small><h2 id="settingsTitle">Configurações</h2></div><button id="closeSettings" class="icon-btn" type="button" aria-label="Fechar"><svg><use href="#icon-x"></use></svg></button></div>
+          <div class="setting-row">
+            <div class="setting-icon"><svg><use href="#icon-sound"></use></svg></div>
+            <div class="setting-copy"><strong>Som do jogo</strong><small>Efeitos de abraço, acerto e recompensa.</small></div>
+            <button id="soundToggle" class="switch is-on" type="button" role="switch" aria-checked="true" aria-label="Som do jogo"><span></span></button>
+          </div>
+          <div class="setting-row">
+            <div class="setting-icon"><svg><use href="#icon-tilt"></use></svg></div>
+            <div class="setting-copy"><strong>Inclinação (acelerômetro)</strong><small>Incline o celular para mover sua personagem. No iOS, pediremos permissão.</small></div>
+            <button id="tiltToggle" class="switch" type="button" role="switch" aria-checked="false" aria-label="Inclinação"><span></span></button>
+          </div>
+          <div class="setting-row">
+            <div class="setting-icon"><svg><use href="#icon-hug"></use></svg></div>
+            <div class="setting-copy"><strong>Controles de toque</strong><small>Use o joystick à esquerda e os botões de ação à direita.</small></div>
+            <span class="setting-tag">ATIVO</span>
+          </div>
+          <button id="settingsDone" class="primary-btn wide" type="button">Tudo pronto</button>
+        </div>
+      </div>
+
+      <div id="how" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="howTitle">
+        <div class="modal-card how-card">
+          <div class="modal-head"><div><small>GUIA RÁPIDO</small><h2 id="howTitle">Como jogar</h2></div><button id="closeHow" class="icon-btn" type="button" aria-label="Fechar"><svg><use href="#icon-x"></use></svg></button></div>
+          <ol class="how-list">
+            <li><span>01</span><div><strong>Entre na Duo Plaza</strong><p>Use o joystick, WASD ou incline o celular para andar.</p></div></li>
+            <li><span>02</span><div><strong>Abrace e escolha</strong><p>Chegue perto de um jogador online, aperte em Abraçar e depois em Escolher.</p></div></li>
+            <li><span>03</span><div><strong>Encare a prova</strong><p>Responda às 3 perguntas da Professora Marieine sem pressa.</p></div></li>
+            <li><span>04</span><div><strong>Veja o resultado</strong><p>3 acertos valem um Gift Card de 123 Robux. Errar custa só 13 Robux.</p></div></li>
+          </ol>
+          <button id="howDone" class="primary-btn wide" type="button">Vamos jogar</button>
+        </div>
+      </div>
+
+      <div id="flash" class="flash" aria-hidden="true"></div>
+      <div id="confetti" class="confetti" aria-hidden="true"></div>
+      <div id="dom-hearts" class="dom-hearts" aria-hidden="true"></div>
+    </div>
+  </body>
+</html>

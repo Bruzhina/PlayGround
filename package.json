@@ -1,0 +1,30 @@
+{
+  "name": "duo-quest",
+  "version": "1.0.0",
+  "description": "Duo Quest — jogo de dupla com a prova de ciências da Professora Marieine",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bruzhina/PlayGround.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bruzhina/PlayGround/issues"
+  },
+  "homepage": "https://github.com/Bruzhina/PlayGround#readme",
+  "dependencies": {
+    "@fontsource/fredoka": "^5.3.0",
+    "@fontsource/nunito": "^5.3.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

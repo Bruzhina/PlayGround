@@ -1,0 +1,18 @@
+{
+  "name": "Spirelings",
+  "short_name": "Spirelings",
+  "description": "A creature-catching deckbuilder for phone and tablet. Climb the spire, build your deck, and catch every wildling.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#071410",
+  "theme_color": "#071410",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23071410'/%3E%3Ccircle cx='256' cy='256' r='200' fill='none' stroke='%23f4c869' stroke-width='10' opacity='.7'/%3E%3Cpath d='M256 100c88 0 140 62 140 142 0 98-70 170-140 198-70-28-140-100-140-198 0-80 52-142 140-142z' fill='%2369c786'/%3E%3Ccircle cx='214' cy='254' r='22' fill='%23071410'/%3E%3Ccircle cx='298' cy='254' r='22' fill='%23071410'/%3E%3Cpath d='M222 312c20 20 48 20 68 0' stroke='%23071410' stroke-width='14' fill='none' stroke-linecap='round'/%3E%3Cpath d='M256 96c-10-30 4-50 30-58-2 28-12 44-30 52' fill='%232f8156'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

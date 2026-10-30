@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#090b0c" />
+  <meta name="description" content="A fan-made, low-end-phone-friendly first-person zombie survival game. Scavenge, fortify, and survive seven nights." />
+  <title>7 Days to Die — Pocket Survival</title>
+  <script type="module" crossorigin src="/assets/index-tXBxAUnP.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Dg2iSpJ3.css">
+</head>
+<body>
+  <div id="app">
+    <canvas id="game" aria-label="First-person survival game world"></canvas>
+
+    <div id="vignette" class="fx-layer"></div>
+    <div id="grain" class="fx-layer"></div>
+    <div id="damage-flash" class="fx-layer"></div>
+    <div id="night-tint" class="fx-layer"></div>
+
+    <div id="hud" class="hidden" aria-live="polite">
+      <div class="hud-top">
+        <div class="day-panel glass">
+          <div class="day-row">
+            <span id="dayLabel" class="day-label">DAY 1</span>
+            <span id="timeLabel" class="time-label">16:00</span>
+          </div>
+          <div class="day-track"><div id="dayProgress" class="day-progress"></div><i id="nightMarker" class="night-marker"></i></div>
+          <div id="nightHint" class="night-hint">DUSK IN 00:50</div>
+        </div>
+
+        <div class="compass glass">
+          <div id="compassTape" class="compass-tape"></div>
+          <div class="compass-needle"></div>
+        </div>
+
+        <div class="supply-panel glass">
+          <div class="supply-chip"><span class="res-icon wood"></span><b id="woodCount">0</b><small>WOOD</small></div>
+          <div class="supply-chip"><span class="res-icon stone"></span><b id="stoneCount">0</b><small>STONE</small></div>
+          <div class="supply-chip"><span class="res-icon scrap"></span><b id="scrapCount">0</b><small>SCRAP</small></div>
+          <div class="supply-chip"><span class="res-icon ammo"></span><b id="ammoCount">36</b><small>AMMO</small></div>
+          <div class="supply-chip"><span class="res-icon food"></span><b id="foodCount">2</b><small>FOOD</small></div>
+        </div>
+      </div>
+
+      <div id="toast" class="toast"></div>
+      <div id="killFeed" class="kill-feed"></div>
+
+      <div id="crosshair" class="crosshair">
+        <i></i><i></i><i></i><i></i>
+        <span id="hitmarker" class="hitmarker"></span>
+      </div>
+
+      <div id="interaction" class="interaction hidden">
+        <span class="key-cap">LMB</span>
+        <span id="interactionText">CHOP TREE</span>
+      </div>
+
+      <div class="hud-bottom">
+        <div class="vitals glass">
+          <div class="vital">
+            <span class="vital-icon heart"></span>
+            <div class="vital-track"><div id="healthBar" class="vital-fill health"></div></div>
+            <b id="healthText">100</b>
+          </div>
+          <div class="vital">
+            <span class="vital-icon food"></span>
+            <div class="vital-track"><div id="hungerBar" class="vital-fill hunger"></div></div>
+            <b id="hungerText">100</b>
+          </div>
+          <div class="vital">
+            <span class="vital-icon stamina"></span>
+            <div class="vital-track"><div id="staminaBar" class="vital-fill stamina"></div></div>
+            <b id="staminaText">100</b>
+          </div>
+          <div class="vital-meta"><span id="tiltState">TILT OFF</span><span id="fpsLabel">30 FPS</span></div>
+        </div>
+
+        <div class="desktop-hints glass">
+          <span><b>WASD</b> MOVE</span><span><b>MOUSE</b> LOOK</span><span><b>LMB</b> FIRE / CHOP</span><span><b>B</b> BUILD</span><span><b>SPACE</b> JUMP</span><span><b>R</b> RELOAD</span>
+        </div>
+      </div>
+
+      <div id="look-zone" aria-hidden="true"></div>
+      <div id="joystick" class="touch-only" aria-label="Movement joystick">
+        <div class="joystick-ring"></div>
+        <div id="stick" class="joystick-stick"></div>
+      </div>
+      <div id="touch-buttons" class="touch-only">
+        <button class="tbtn tbtn-reload" data-action="reload" aria-label="Reload">RLD</button>
+        <button class="tbtn tbtn-build" data-action="build" aria-label="Build barricade">BUILD</button>
+        <button class="tbtn tbtn-jump" data-action="jump" aria-label="Jump">JUMP</button>
+        <button class="tbtn tbtn-fire" data-action="fire" aria-label="Fire or harvest">FIRE</button>
+      </div>
+
+      <button id="pauseBtn" class="pause-btn glass" aria-label="Pause">II</button>
+    </div>
+
+    <div id="menu" class="overlay menu-overlay">
+      <div class="menu-scan"></div>
+      <div class="menu-layout">
+        <div class="menu-copy">
+          <div class="eyebrow"><span class="live-dot"></span> FAN-MADE BROWSER SURVIVAL</div>
+          <h1 class="game-title"><span class="title-seven">7</span><span class="title-days">DAYS</span><span class="title-to">TO</span><span class="title-die">DIE</span></h1>
+          <div class="title-rule"><span></span>POCKET SURVIVAL<span></span></div>
+          <p class="tagline">Scavenge the dead lands. Fortify the cabin. <br />Survive seven nights.</p>
+
+          <div class="menu-actions">
+            <button id="startBtn" class="btn btn-primary" aria-label="START"><span class="btn-glow"></span><span class="btn-label">START</span><small>ENTER THE DEAD ZONE</small></button>
+            <button id="settingsBtn" class="btn btn-ghost">SETTINGS</button>
+          </div>
+
+          <div class="device-badge"><span class="chip-icon"></span> TUNED FOR GALAXY A04 <i>•</i> TOUCH + TILT READY</div>
+          <div class="menu-footer">
+            <span><b>WASD</b> move</span><span><b>Mouse</b> look</span><span><b>LMB</b> fire / chop</span><span><b>B</b> build</span>
+          </div>
+        </div>
+
+        <aside class="field-card glass">
+          <div class="field-card-head"><span>FIELD NOTES</span><span class="field-day">NIGHT 1</span></div>
+          <div class="note-row"><span class="note-num">01</span><div><b>Gather before dark</b><p>Chop pines and break stone. Wood builds barricades; scrap keeps the rifle fed.</p></div></div>
+          <div class="note-row"><span class="note-num">02</span><div><b>Fortify the cabin</b><p>Press <kbd>B</kbd> to drop a barricade. Zombies will tear through it if you let them.</p></div></div>
+          <div class="note-row"><span class="note-num">03</span><div><b>Aim for the head</b><p>One clean headshot drops a walker. Body shots take three.</p></div></div>
+          <div class="best-row"><span>BEST RUN</span><b id="bestRun">—</b></div>
+        </aside>
+      </div>
+    </div>
+
+    <div id="settings" class="overlay panel-overlay hidden" role="dialog" aria-modal="true" aria-label="Settings">
+      <div class="panel glass">
+        <div class="panel-head"><div><span class="panel-kicker">SYSTEM</span><h2>SETTINGS</h2></div><button id="closeSettings" class="icon-btn" aria-label="Close settings">×</button></div>
+        <div class="setting-row">
+          <div><b>Graphics quality</b><p>Auto detects low-end phones and protects frame rate.</p></div>
+          <div class="segmented" id="qualityControl"><button data-quality="auto" class="active">AUTO</button><button data-quality="low">LOW</button><button data-quality="high">HIGH</button></div>
+        </div>
+        <div class="setting-row">
+          <div><b>Motion tilt</b><p>Optional gyro aim. iOS asks for motion permission.</p></div>
+          <button id="tiltToggle" class="switch" role="switch" aria-checked="false"><span></span><em>OFF</em></button>
+        </div>
+        <div class="setting-row">
+          <div><b>Look sensitivity</b><p>Drag, mouse, and tilt gain.</p></div>
+          <div class="range-wrap"><input id="sensitivity" type="range" min="0.5" max="2" step="0.1" value="1" /><b id="sensitivityValue">1.0×</b></div>
+        </div>
+        <div class="setting-row">
+          <div><b>Sound</b><p>Procedural wind, gunshots, and growls.</p></div>
+          <button id="soundToggle" class="switch" role="switch" aria-checked="true"><span></span><em>ON</em></button>
+        </div>
+        <div class="setting-note" id="motionNote">Tilt uses DeviceOrientation. Permission is requested only when you enable it.</div>
+        <button id="doneSettings" class="btn btn-primary panel-done"><span class="btn-label">DONE</span></button>
+      </div>
+    </div>
+
+    <div id="pause" class="overlay panel-overlay hidden" role="dialog" aria-modal="true" aria-label="Paused">
+      <div class="panel glass pause-panel">
+        <div class="panel-kicker">SURVIVAL SUSPENDED</div>
+        <h2>PAUSED</h2>
+        <p>The dead are patient. Take a breath.</p>
+        <button id="resumeBtn" class="btn btn-primary"><span class="btn-label">RESUME</span></button>
+        <button id="quitBtn" class="btn btn-ghost">ABANDON RUN</button>
+      </div>
+    </div>
+
+    <div id="gameover" class="overlay panel-overlay hidden" role="dialog" aria-modal="true" aria-label="Game over">
+      <div class="panel glass end-panel">
+        <div class="panel-kicker" id="endKicker">RUN ENDED</div>
+        <h2 id="endTitle">YOU DIED</h2>
+        <p id="endCopy">The dead got you before dawn.</p>
+        <div class="end-stats">
+          <div><span>DAYS SURVIVED</span><b id="endDays">1</b></div>
+          <div><span>WALKERS DOWN</span><b id="endKills">0</b></div>
+          <div><span>WOOD GATHERED</span><b id="endWood">0</b></div>
+        </div>
+        <button id="retryBtn" class="btn btn-primary"><span class="btn-label">TRY AGAIN</span></button>
+        <button id="menuBtn" class="btn btn-ghost">MAIN MENU</button>
+      </div>
+    </div>
+
+    <div id="rotateHint" class="rotate-hint hidden"><span>↻</span> ROTATE FOR A WIDER VIEW</div>
+  </div>
+
+</body>
+</html>

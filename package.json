@@ -1,0 +1,19 @@
+{
+  "name": "pocket-survival-7-days",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A low-end-phone-friendly first-person zombie survival game inspired by 7 Days to Die.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}
